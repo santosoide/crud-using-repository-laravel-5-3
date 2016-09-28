@@ -12,7 +12,7 @@ class ContactController extends Controller {
 
     protected $contact;
 
-    public function __construct(ContactRepository $contact){
+    public function __construct(ContactInterface $contact){
         $this->contact = $contact;
     } 
 

@@ -27,18 +27,37 @@ class ContactRepository extends AbstractRepository implements ContactInterface, 
         return parent::paginate($limit, $page, $column, 'name', $search);
     }
 
+    public function create(array $data)
+    {
+        // execute sql insert
+        return parent::create([
+            'name'     => e($data['name']),
+            'email'    => e($data['email']),
+            'address'    => e($data['address']),
+            'phone'    => e($data['phone'])
+        ]);
+
+    }
+
+    public function update($id, array $data)
+    {
+        return parent::update($id, [
+            'name'     => e($data['name']),
+            'email'    => e($data['email']),
+            'address'    => e($data['address']),
+            'phone'    => e($data['phone'])
+        ]);
+    }
+
+     public function delete($id)
+    {
+        return parent::delete($id);
+    }
+
 
     public function findById($id, array $columns = ['*']){
                return $this->model->find($id, $columns);
     }
 
-  
-
-
-   
- 
-
-
-
-
+   public function show($id, array $data){}
 }

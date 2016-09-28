@@ -25,6 +25,8 @@ interface Crudable
      *
      * @return mixed
      */
+    public function show($id, array $data);
+    public function paginate($limit = 10, $page = 1, array $column, $field, $search = '');
     public function create(array $data);
 
     /**
