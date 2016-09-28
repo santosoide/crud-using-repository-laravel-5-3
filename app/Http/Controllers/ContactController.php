@@ -16,75 +16,88 @@ class ContactController extends Controller {
         $this->contact = $contact;
     } 
 
-    /**
+ 
+    public function index(Request  $request){
+        return $this->contact->paginate(10, $request->input('page'), $column = ['*'], '', $request->input('search'));
+    }
+   /**
      * @api {get} api/contacts Request Contact with Paginate
      * @apiName GetContactWithPaginate
      * @apiGroup Contact
      *
-     * @apiParam {Number} page Paginate contact list
+     * @apiParam {Number} page Paginate contact lists
      */
-    public function index(Request  $request){
-        return $this->contact->paginate(10, $request->input('page'), $column = ['*'], '', $request->input('search'));
-    }
 
-/**
-     * @api {get} api/contacts/id Request Show Contact by ID
-     * @apiName ShowContactByID
-     * @apiGroup Contact
-     *
-     * @apiParam {Number} id id_contact
-     * @apiParam {Varchar} name name of contact
-     * @apiParam {Varchar} email email of contact
-     * @apiParam {Float} phone phone of contact
-     * @apiParam {Number} id id of contact
-     */
+
+
+
     public function show($id){
         return $this->contact->findById($id);
     }
 
-/**
-     * @api {post} api/contacts/ Request Post Contact
-     * @apiName PostContact
+    /**
+     * @api {get} api/contacts/id Request Get Contact
+     * @apiName GetContact
      * @apiGroup Contact
-     *
-     * @apiParam {Number} id id_contact
-     * @apiParam {Varchar} examplename name of contact
-     * @apiParam {Varchar} exampleemail email of contact
-     * @apiParam {Float} examplephone phone of contact
-     * @apiSuccess Return-Array-Contact Store was success
      * 
+     * @apiParam {Number} id id_contact
+     * @apiSuccess {Number} id id_contact
+     * @apiSuccess {Varchar} name name of contact
+     * @apiSuccess {Varchar} address name of address
+     * @apiSuccess {Varchar} email email of contact
+     * @apiSuccess {Number} phone phone of contact
      */
+   
     public function store(ContactCreateRequest $request)
     {
         return $this->contact->create($request->all());
     }
-/**
-     * @api {put} api/contacts/id?name=examplename&email=exampleemail&address=exampleaddress&phone=examplephone Request Update Contact by ID
-     * @apiName UpdateContactByID
+
+ /**
+     * @api {post} api/contacts/ Request Post Contact 
+     * @apiName PostContact
      * @apiGroup Contact
      *
-     * @apiParam {Number} id id_contact
-     * @apiParam {Varchar} examplename name of contact
-     * @apiParam {Varchar} exampleemail email of contact
-     * @apiParam {Float} examplephone phone of contact
-     * @apiSuccess Berhasil-Update-Data Update was success
-     * @apiError Tidak-Berhasil-update-data Update was failed
+     *
+     * @apiParam {Varchar} name name of contact
+     * @apiParam {Varchar} email email of contact
+     * @apiParam {Varchar} address email of address
+     * @apiParam {Float} phone phone of contact
+     * @apiSuccess {Number} id id of contact
      */
+
     public function update(ContactEditRequest $request, $id){
         return $this->contact->update($id, $request->all());
     }
-
 /**
+     * @api {put} api/contacts/id Request Update Contact by ID
+     * @apiName UpdateContactByID
+     * @apiGroup Contact
+     *
+     * 
+     * @apiParam {Varchar} name name of contact
+     * @apiParam {Varchar} email email of contact
+     * @apiParam {Varchar} address address of contact
+     * @apiParam {Float} phone phone of contact
+     * 
+     * 
+     *  @apiError EmailHasRegitered The Email must diffrerent.
+     */
+
+
+    public function destroy($id){
+        return $this->contact->delete($id);
+    }
+    /**
      * @api {delete} api/contacts/id Request Delete Contact by ID
      * @apiName DeleteContactByID
      * @apiGroup Contact
      *
      * @apiParam {Number} id id of contact
-     * @apiSuccess Berhasil-Hapus-Data id was correct 
-     * @apiError Gagal-Hapus-Data id was not found
+     *  
+     * 
+     *  @apiError ContactNotFound The <code>id</code> of the Contact was not found.
+     *  @apiError NoAccessRight Only authenticated Admins can access the data.
      */
-    public function destroy($id){
-        return $this->contact->delete($id);
-    }
 
 }
