@@ -59,5 +59,4 @@ class ContactRepository extends AbstractRepository implements ContactInterface, 
                return $this->model->find($id, $columns);
     }
 
-   public function show($id, array $data){}
 }

@@ -30,10 +30,6 @@ abstract class AbstractRepository  implements Crudable {
     {
         return $this->make()->where($key, 'like', '%' . $value . '%')->paginate($limit, $columns);
     }
-    
-    
-
-
 
 
      public function create(array $data)
