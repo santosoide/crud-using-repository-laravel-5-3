@@ -1,10 +1,39 @@
 <?php
 
 namespace App\Domain\Contracts;
-
-interface Crudable
+/**
+ * Interface Repository
+ *
+ * @package App\Domain\Contracts
+ */
+interface Repository
 {
-    public function getAll();
+    /**
+     * @return mixed
+     */
+    public function all();
 
-    public function paginate($limit, array $column);
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function getManyBy($key, $value);
+
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function getFirstBy($key, $value);
+
+    /**
+     * @param array $attributes
+     *
+     * @return mixed
+     */
+    public function instance(array $attributes = []);
+
 }

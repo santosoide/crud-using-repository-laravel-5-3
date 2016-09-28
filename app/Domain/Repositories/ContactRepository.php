@@ -5,8 +5,11 @@ namespace App\Domain\Repositories;
 use App\Domain\Entities\Contact;
 use App\Domain\Contracts\ContactInterface;
 use App\Domain\Contracts\Crudable;
+use App\Domain\Contracts\Repository;
+use App\Domain\Repositories\AbstractRepository;
 
-class ContactRepository extends AbstractRepository implements ContactInterface, CrudableInterface {
+
+class ContactRepository extends AbstractRepository implements ContactInterface, Crudable {
 
     protected $model;
 
@@ -18,12 +21,24 @@ class ContactRepository extends AbstractRepository implements ContactInterface, 
         return $this->model->all();
     }
 
-    public function paginate($limit = 15, array $columns){
-        return parent::paginate($limit, $columns);
+     public function paginate($limit = 10, $page = 1, array $column = ['*'], $field, $search = '')
+    {
+        // query to aql
+        return parent::paginate($limit, $page, $column, 'name', $search);
     }
 
-    public function findById($id){
-        return $this->model->find($id);
+
+    public function findById($id, array $columns = ['*']){
+               return $this->model->find($id, $columns);
     }
+
+  
+
+
+   
+ 
+
+
+
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Seeder;
 
 class ContactTableSeeder extends Seeder
@@ -15,6 +16,6 @@ class ContactTableSeeder extends Seeder
         DB::table('contacts')->truncate();
 
         // generate dummy data with 100 records using Faker
-        factory('App\Entities\Contact', 100)->create();
+        factory('App\Domain\Entities\Contact', 100)->create();
     }
 }
