@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\Entities\Contact::class, function (Faker\Generator $faker) {
+$factory->define(App\Domain\Entities\Contact::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->name,

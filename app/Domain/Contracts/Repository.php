@@ -2,9 +2,15 @@
 
 namespace App\Domain\Contracts;
 
-interface Crudable
+interface Repository
 {
-    public function getAll();
+  
+    public function all();
 
-    public function paginate($limit, array $column);
+    public function getManyBy($key, $value);
+
+    public function getFirstBy($key, $value);
+
+    public function instance(array $attributes = []);
+
 }

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Repositories;
 
-use App\Domain\Contracts\Crudable;
+use App\Domain\Contracts\Crudable as Crudable;
 
 abstract class AbstractRepository  implements Crudable {
 
@@ -26,16 +26,42 @@ abstract class AbstractRepository  implements Crudable {
         return $this->make()->get($columns);
     }
 
-    public function paginate($limit = 15, array $columns = ['*'])
+      public function paginate($limit = 10, $page = 1, array $columns = ['*'], $key, $value = '')
     {
-        return $this->make()->paginate($limit, $columns);
+        return $this->make()->where($key, 'like', '%' . $value . '%')->paginate($limit, $columns);
     }
 
-    public function create(array $data){}
 
-    public function show($id){}
+     public function create(array $data)
+    {
+        return $this->model->create($data);
+    }
 
-    public function update($id, array $data){}
 
-    public function destroy($id){}
+
+     public function update($id, array $data)
+    {
+        $q = $this->findById($id)->fill($data)->save();
+
+        if (!$q) {
+            return 'Tidak berhasil update data';
+        }
+
+        return 'Berhasil update data';
+
+    }
+
+
+     public function delete($id)
+    {
+        $q = $this->findById($id);
+
+        if (!$q) {
+            return 'Gagal Hapus data';
+        }
+        $q->delete();
+
+        return 'Berhasil Hapus data';
+    }
+
 }
