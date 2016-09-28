@@ -16,6 +16,13 @@ class ContactController extends Controller {
         $this->contact = $contact;
     } 
 
+    /**
+     * @api {get} api/contacts Request Contact with Paginate
+     * @apiName GetContactWithPaginate
+     * @apiGroup Contact
+     *
+     * @apiParam {Number} page Paginate contact list.
+     */
     public function index(Request  $request){
         return $this->contact->paginate(10, $request->input('page'), $column = ['*'], '', $request->input('search'));
     }
