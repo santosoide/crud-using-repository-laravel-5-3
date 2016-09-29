@@ -98,7 +98,7 @@ class ContactRepository extends AbstractRepository implements ContactInterface, 
      */
     public function findById($id, array $columns = ['*'])
     {
-        return $this->model->find($id, $columns);
+        return parent::find($id, $columns);
     }
 
 }
