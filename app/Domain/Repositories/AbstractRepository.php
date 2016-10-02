@@ -285,7 +285,7 @@ abstract class AbstractRepository implements RepositoryContract
      */
     public function deleteError()
     {
-        return response()->json(['deleted' => false], 200);
+        return response()->json(['deleted' => false], 500);
     }
 
     /**
