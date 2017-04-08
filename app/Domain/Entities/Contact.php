@@ -3,6 +3,7 @@
 namespace App\Domain\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Contact
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Contact extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var array
      */

@@ -95,9 +95,9 @@ abstract class AbstractRepository implements RepositoryContract
     {
         $q = $this->model->create($data);
         if (!$q) {
-            return $this->createError();
+            return $this->createError($data);
         }
-        return $this->createSuccess();
+        return $this->createSuccess($data);
     }
 
     /**
@@ -239,9 +239,9 @@ abstract class AbstractRepository implements RepositoryContract
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createSuccess()
+    public function createSuccess($data)
     {
-        return response()->json(['created' => true], 200);
+        return response()->json($data);
     }
 
     /**
@@ -251,7 +251,7 @@ abstract class AbstractRepository implements RepositoryContract
      */
     public function updateSuccess($data)
     {
-        return response()->json(['updated' => true], 200);
+        return response()->json($data);
     }
 
     /**
